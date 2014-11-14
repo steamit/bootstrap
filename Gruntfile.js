@@ -296,7 +296,15 @@ module.exports = function (grunt) {
     },
 
     jekyll: {
-      docs: {}
+      options: {
+        config: '_config.yml'
+      },
+      docs: {},
+      gh: {
+        options: {
+          raw: 'github: true'
+        }
+      }
     },
 
     jade: {
@@ -453,6 +461,8 @@ module.exports = function (grunt) {
   grunt.registerTask('docs-js', ['uglify:docsJs', 'uglify:customize']);
   grunt.registerTask('lint-docs-js', ['jshint:assets', 'jscs:assets']);
   grunt.registerTask('docs', ['docs-css', 'lint-docs-css', 'docs-js', 'lint-docs-js', 'clean:docs', 'copy:docs', 'build-customizer']);
+
+  grunt.registerTask('docs-gh', ['jekyll:gh']);
 
   // Task for updating the cached npm packages used by the Travis build (which are controlled by test-infra/npm-shrinkwrap.json).
   // This task should be run and the updated file should be committed whenever Bootstrap's dependencies change.
